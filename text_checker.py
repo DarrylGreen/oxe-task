@@ -32,6 +32,8 @@ class TextChecker(object):
         for line_index, line in enumerate(self.text_to_check.splitlines()):
             for word_index, word in enumerate(line.split()):
                 try:
+                    if word in ['special', 'stop']:
+                        continue
                     pipe.stdin.write(word + "\n")
                     output = pipe.stdout.readline().rstrip()
                     if output != '0':

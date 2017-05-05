@@ -67,6 +67,13 @@ def test_non_roman_numeral_word():  # The converter incorrectly states these are
     pipe.terminate()
 
 
+def test_special_words():  # A nasty surprise
+    pipe = Popen(['./RomanConvertor'], stdin=PIPE, stdout=PIPE)
+    pipe.stdin.write('special stop\n')
+    assert pipe.stdout.readline() == 'insert comedy answer here\n'
+    assert pipe.stdout.readline() == 'stopping...\n'
+
+
 def test_TextChecker_output():
     text_to_check = "http://www.gutenberg.org/files/54610/54610-0.txt"
     text_checker = TextChecker(text_to_check, './RomanConvertor')
